@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>线路选择中</title>
+</head>
+<body>
+<div style="margin-top:60%;text-align: center;">请耐心等待跳转，线路选择中……</div>
+<script>
+    //urls是拉取新站点的十个域名
+    var urls=[
+        {"name":"海外线路","url":"url.xniutvapp","ext":"pw"},
+        {"name":"海外线路","url":"url.xniuporn","ext":"pw"},
+        {"name":"海外线路","url":"url.xniucn","ext":"pw"},
+        {"name":"海外线路","url":"url.xniumovie","ext":"pw"},
+		{"name":"海外线路","url":"url.xniuvideo","ext":"pw"},
+		{"name":"海外线路","url":"url.xniudianying","ext":"pw"},
+		{"name":"海外线路","url":"url.xniuapp","ext":"pw"}
+    ];
+    //循环请求函数
+    window.onload = function () {
+        for(var x in urls){
+            addScriptTag("http://"+urls[x].url+"."+urls[x].ext+'/?callback=jump');
+        }
+        for(var x in urls){
+            for(var i=1;i<=200;i++){
+                var index="";
+                if(i<10){
+                    index = "00"+i;
+                }else if(i<100){
+                    index = "0"+i;
+                }else{
+                    index = i;
+                }
+                addScriptTag("http://"+urls[x].url+index+"."+urls[x].ext+'/?callback=jump');
+            }
+        }
+    }
+    //请求函数
+    function addScriptTag(src) {
+        var script = document.createElement('script');
+        script.setAttribute("type","text/javascript");
+        script.src = src;
+        document.body.appendChild(script);
+    }
+    //跳转函数
+    function jump(data) {
+        window.location.href=data.url;
+    }
+</script>
+
+
+
+</body>
+</html>
